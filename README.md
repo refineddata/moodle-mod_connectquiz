@@ -27,3 +27,5 @@ It is essential that you follow the instructions below on your LMS to ensure all
 
 For more information and a User Manual please visit our support site:
 http://support.refineddata.com/hc/en-us/categories/200134280-Refined-Training
+!!
+
