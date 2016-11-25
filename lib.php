@@ -1093,7 +1093,7 @@ function connectquiz_create_display( $connectquiz ){
         }
         $overtext .= $strtime . $strtele;
 
-        if (!empty($PAGE->context) && $PAGE->user_allowed_editing()) {
+        if (!empty($PAGE->context->id) && $PAGE->user_allowed_editing() && $USER->editing) {
             if( $course = $DB->get_record( 'course', array( 'id' => $connectquiz->course ) ) ){
                 $editcontext = context_course::instance($course->id);
             }else{
