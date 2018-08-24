@@ -1099,16 +1099,30 @@ function connectquiz_create_display( $connectquiz ){
             }else{
                 $editcontext = context_system::instance();
             }
+
+            // for Moodle 3.3 onwards
+            if (method_exists($OUTPUT, 'image_url')){
+                $edit_icon = $OUTPUT->image_url('/t/edit');
+                $return_icon = $OUTPUT->image_url('/i/return');
+                $groups_icon = $OUTPUT->image_url('/t/groups');
+                $calendar_icon = $OUTPUT->image_url('/t/calendar');
+            } else {
+                $edit_icon = $OUTPUT->pix_url('/t/edit');
+                $return_icon = $OUTPUT->pix_url('/i/return');
+                $groups_icon = $OUTPUT->pix_url('/t/groups');
+                $calendar_icon = $OUTPUT->pix_url('/t/calendar');
+            }
+
             if (has_capability('filter/connect:editresource', $editcontext)) {
                 $overtext .= '<a href="' . $link . '&edit=' . $connectquiz->ac_id . '&type=' . $connectquiz->ac_type . '" target="'.$linktarget.'" >';
                 //$overtext .= '<img src="' . $CFG->wwwroot . '/mod/connectquiz/images/adobe.gif" border="0" align="middle"> ';
                 //$overtext .= get_string('launch_edit', 'connectquiz') . '</a><br/>';
-                $overtext .= "<img src='" . $OUTPUT->pix_url('/t/edit') . "' class='iconsmall' title='" . get_string('launch_edit', 'connectquiz')  ."' />". "</a>";
+                $overtext .= "<img src='" . $edit_icon . "' class='iconsmall' title='" . get_string('launch_edit', 'connectquiz')  ."' />". "</a>";
 
                 $overtext .= '<a href="#" id="connectquiz-update-from-adobe" data-connectquizid="'.$connectquiz->id.'">';
                 //$overtext .= '<img src="' . $CFG->wwwroot . '/mod/connectquiz/images/adobe.gif" border="0" align="middle"> ';
                 //$overtext .= get_string('update_from_adobe', 'connectquiz') . '</a><br/>';
-                $overtext .= "<img src='" . $OUTPUT->pix_url('/i/return') . "' class='iconsmall' title='" . get_string('update_from_adobe', 'connectquiz')  ."' />". "</a>";
+                $overtext .= "<img src='" . $return_icon . "' class='iconsmall' title='" . get_string('update_from_adobe', 'connectquiz')  ."' />". "</a>";
             }
 
             if ($connectquiz->ac_type == 'meeting') {
@@ -1117,11 +1131,11 @@ function connectquiz_create_display( $connectquiz ){
                     if( file_exists( $CFG->dirroot.'/filter/connect/attendees.php' ) ){
                         $overtext .= '<a href="' . $CFG->wwwroot . '/filter/connect/attendees.php?acurl=' . $connectquiz->url . '&course=' . $connectquiz->course . '">';
                         //$overtext .= '<img src="' . $CFG->wwwroot . '/filter/connect/images/attendee.gif" border="0" align="middle"> ' . get_string('viewattendees', 'filter_connect') . '</a>';
-                        $overtext .= "<img src='" . $OUTPUT->pix_url('/t/groups') . "' class='iconsmall' title='" . get_string('viewattendees', 'filter_connect') ."' />". "</a>";
+                        $overtext .= "<img src='" . $groups_icon . "' class='iconsmall' title='" . get_string('viewattendees', 'filter_connect') ."' />". "</a>";
                     }
                     $overtext .= '<a href="' . $CFG->wwwroot . '/mod/connectquiz/past_sessions.php?acurl=' . $connectquiz->url . '&course=' . $connectquiz->course . '">';
                     //$overtext .= '<br /><img src="' . $CFG->wwwroot . '/mod/connectquiz/images/attendee.gif" border="0" align="middle"> ' . get_string('viewpastsessions', 'connectquiz') . '</a>';
-                    $overtext .= "<img src='" . $OUTPUT->pix_url('/t/calendar') . "' class='iconsmall' title='" . get_string('viewpastsessions', 'connectquiz') ."' />". "</a>";
+                    $overtext .= "<img src='" . $calendar_icon . "' class='iconsmall' title='" . get_string('viewpastsessions', 'connectquiz') ."' />". "</a>";
                 }
             }
         }
