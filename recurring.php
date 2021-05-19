@@ -75,9 +75,18 @@ function browse( $connectquiz ) {
         $table->align = array ( 'left', 'left', 'center' );
         $table->width = '100%';
 
+        // for Moodle 3.3 onwards
+        if (method_exists($OUTPUT, 'image_url')){
+            $edit_icon = $OUTPUT->image_url('/t/edit');
+            $delete_icon = $OUTPUT->image_url('/t/delete');
+        } else {
+            $edit_icon = $OUTPUT->pix_url('/t/edit');
+            $delete_icon = $OUTPUT->pix_url('/t/delete');
+        }
+
         foreach( $instances as $inst ) {
-            $edit   = '<a href="' . $PAGE->url . '&task=edit&id=' . $connectquiz->id . '&inst=' . $inst->id . '"><img src="' . $OUTPUT->pix_url('/t/edit') . '" class="iconsmall" alt="Edit" /></a>';
-            $delete = '<a href="' . $PAGE->url . '&task=confirm&id=' . $connectquiz->id . '&inst=' . $inst->id . '"><img src="' . $OUTPUT->pix_url('/t/delete') . '" class="iconsmall" alt="Edit" /></a>';
+            $edit   = '<a href="' . $PAGE->url . '&task=edit&id=' . $connectquiz->id . '&inst=' . $inst->id . '"><img src="' . $edit_icon . '" class="iconsmall" alt="Edit" /></a>';
+            $delete = '<a href="' . $PAGE->url . '&task=confirm&id=' . $connectquiz->id . '&inst=' . $inst->id . '"><img src="' . $delete_icon . '" class="iconsmall" alt="Edit" /></a>';
             $table->data[] = array( DATE( 'M d Y h:ia T', $inst->start ), $inst->url, $edit . '&nbsp;' . $delete );
         }
 
