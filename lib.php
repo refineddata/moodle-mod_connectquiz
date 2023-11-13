@@ -1215,8 +1215,10 @@ function connectquiz_mod_tzabbr() {
     return $dt->format('T');
 }
 
-function connectquiz_grade_meeting($courseid, $url, $connectquiz = null, $startdaterange, $enddaterange, $regrade) {
+function connectquiz_grade_meeting($courseid, $url, $connectquiz, $startdaterange, $enddaterange, $regrade) {
     global $CFG, $DB, $USER;
+
+    if(!isset($connectquiz)) $connectquiz = null;
 
     if (!$connectquiz AND !$connectquiz = $DB->get_record('connectquiz', array('course' => $courseid, 'url' => $url))) return false;
 
